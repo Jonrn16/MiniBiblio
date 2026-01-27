@@ -1,0 +1,23 @@
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Año de Publicacion</th>
+                <th>Nº de Paginas</th>
+                <th>Editorial</th>
+                <th>Autores</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for libro in libros %}
+            <tr>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.paginas }}</td>
+                <td> </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
