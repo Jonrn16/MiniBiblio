@@ -1,20 +1,20 @@
 {% block body %}
-    <table>
+    <table border="3px">
         <thead>
             <tr>
                 <th>Titulo</th>
                 <th>Año de Publicacion</th>
                 <th>Nº de Paginas</th>
                 <th>Editorial</th>
-                <th>Autores</th>
             </tr>
         </thead>
         <tbody>
         {% for libro in libros %}
             <tr>
-                <td>{{ libro.titulo }}</td>
+                <td><a href="/libro/autores/{{ libro.id }}">{{ libro.titulo }}</a></td>
                 <td>{{ libro.paginas }}</td>
-                <td> </td>
+                <td>{{ libro.anioPublicacion }}</td>
+                <td>{{ libro.editorial.nombre }}</td>
             </tr>
         {% endfor %}
         </tbody>

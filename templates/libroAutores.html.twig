@@ -1,0 +1,22 @@
+{% block body %}
+
+    <table border="2px">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha Nacimiento</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for autor in libro.autores %}
+        <tr>
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.apellidos }}</td>
+            <td>{{ autor.fechaNacimiento.format('d/m/Y') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
