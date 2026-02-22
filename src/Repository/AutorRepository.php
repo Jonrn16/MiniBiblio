@@ -14,4 +14,14 @@ class AutorRepository extends ServiceEntityRepository
         parent::__construct($registry, Autor::class);
     }
 
+    public function findAutoresWithBookCount() {
+        return $this->createQueryBuilder('a')
+            ->select('a', 'COUNT(l.id) as numLibros')
+            ->leftJoin('a.libros', 'l')
+            ->groupBy('a.id')
+            ->orderBy('a.fechaNacimiento', 'DESC') // Más joven = fecha de nacimiento más reciente
+            ->getQuery()
+            ->getResult();
+    }
+
 }
