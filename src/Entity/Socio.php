@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SocioRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SocioRepository::class)]
@@ -23,10 +24,16 @@ class Socio
     #[ORM\Column(type: 'string')]
     private string $nombre;
 
+    #[ORM\Column(type: 'string')]
+    private string $telefono;
+
     #[ORM\Column(type: 'boolean')]
     private bool $esDocente;
 
     #[ORM\Column(type: 'boolean')]
     private bool $esEstudiante;
+
+    #[ORM\OneToMany(targetEntity: Libro::class, mappedBy: "socioPrestamo")]
+    private Collection $librosPrestados;
 
 }

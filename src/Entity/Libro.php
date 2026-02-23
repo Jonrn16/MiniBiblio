@@ -21,10 +21,22 @@ class Libro
     private ?int $anioPublicacion = null;
     #[ORM\Column(type: 'integer')]
     private ?int $paginas = null;
+
+    #[ORM\Column(type: 'string')]
+    private string $isbn;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $precioCompra;
     #[ORM\ManyToOne(targetEntity: Editorial::class, inversedBy: 'libros')]
     private ?Editorial $editorial = null;
     #[ORM\ManyToMany(targetEntity: Autor::class, inversedBy: 'libros')]
     private Collection $autores;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\ManyToOne(targetEntity: Socio::class, inversedBy: "librosPrestados")]
+    private ?Socio $socioPrestamo;
+
+
     public function __construct()
     {
         $this->autores = new ArrayCollection();
