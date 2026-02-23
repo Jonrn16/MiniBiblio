@@ -104,4 +104,37 @@ class Libro
         return $this;
     }
 
+    public function getIsbn(): string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(string $isbn): Libro
+    {
+        $this->isbn = $isbn;
+        return $this;
+    }
+
+    public function getPrecioCompra(): ?int
+    {
+        return $this->precioCompra;
+    }
+
+    public function setPrecioCompra(?int $precioCompra): Libro
+    {
+        $this->precioCompra = $precioCompra;
+        return $this;
+    }
+
+    public function getSocioPrestamo(): ?Socio
+    {
+        return $this->socioPrestamo;
+    }
+
+    public function setSocioPrestamo(?Socio $socioPrestamo): Libro
+    {
+        $this->socioPrestamo = $socioPrestamo;
+        return $this;
+    }
+
 }

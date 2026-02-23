@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EditorialRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: EditorialRepository::class)]
 #[ORM\Table(name: 'editorial')]
