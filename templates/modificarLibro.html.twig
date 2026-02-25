@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+        {# Indicamos claramente si es nuevo o existente #}
+        {% if libro.id %}
+            Modificar libro: {{ libro.titulo }}
+        {% else %}
+            Registrar nuevo libro
+        {% endif %}
+    </h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">Guardar</button>
+    {{ form_end(form) }}
+
+    {# Asegurar navegabilidad #}
+    <hr>
+    <a href="{{ path('libro_listar') }}" class="btn btn-secondary">Volver al listado</a>
+{% endblock %}

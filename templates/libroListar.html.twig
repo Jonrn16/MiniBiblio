@@ -1,4 +1,5 @@
 {% block body %}
+    <a href="{{ path('libro_nuevo') }}" class="btn btn-primary mb-3">Registrar nuevo libro</a>
     <table border="3px">
         <thead>
             <tr>
@@ -15,6 +16,14 @@
                 <td>{{ libro.paginas }}</td>
                 <td>{{ libro.anioPublicacion }}</td>
                 <td>{{ libro.editorial.nombre }}</td>
+                <td>
+                    <a href="{{ path('libro_modificar', {id: libro.id}) }}">
+                        <i class="fas fa-pencil-alt"></i> {# Icono lápiz (FontAwesome) #}
+                    </a>
+                    <a href="{{ path('libro_eliminar', {id: libro.id}) }}">
+                        <i class="fas fa-trash"></i> {# Icono papelera #}
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
