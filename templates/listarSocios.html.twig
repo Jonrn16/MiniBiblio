@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listado de Socios{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gestión de Socios</h1>
+
+        <a href="{{ path('socio_nuevo') }}" class="btn btn-primary mb-3">
+            <i class="fas fa-user-plus"></i> Registrar nuevo socio
+        </a>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre completo</th>
+                <th>Tipo</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for socio in socios %}
+                <tr>
+                    <td>{{ socio.dni }}</td>
+                    <td>{{ socio.apellidos }}, {{ socio.nombre }}</td>
+                    <td>
+                        {% if socio.docente %} <span class="badge bg-info text-dark">Docente</span> {% endif %}
+                        {% if socio.estudiante %} <span class="badge bg-success">Estudiante</span> {% endif %}
+                    </td>
+                    <td>{{ socio.telefono|default('---') }}</td>
+                    <td>
+                        <a href="{{ path('socio_modificar', {id: socio.id}) }}" class="btn btn-sm btn-warning">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+
+                        <a href="{{ path('socio_eliminar', {id: socio.id}) }}" class="btn btn-sm btn-danger"
+                           onclick="return confirm('¿Estás seguro de que deseas eliminar este socio?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay socios registrados.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mt-3">
+            <a href="{{ path('inicio') }}" class="btn btn-secondary">Volver al Inicio</a>
+        </div>
+    </div>
+{% endblock %}

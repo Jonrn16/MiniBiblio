@@ -6,8 +6,11 @@ use App\Repository\LibroRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LibroRepository::class)]
+#[UniqueEntity(fields: ['isbn'], message: 'Este ISBN ya existe.')]
 #[ORM\Table]
 class Libro
 {
@@ -16,6 +19,8 @@ class Libro
     #[ORM\Column]
     private ?int $id = null;
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: 'El título no puede estar vacío')]
+    #[Assert\Length(min: 2, minMessage: 'El título debe tener más de 1 carácter')]
     private ?string $titulo = null;
     #[ORM\Column(type: 'integer')]
     private ?int $anioPublicacion = null;
@@ -23,13 +28,16 @@ class Libro
     private ?int $paginas = null;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\Isbn(message: 'El ISBN no es válido')]
     private string $isbn;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Assert\PositiveOrZero(message: 'El precio no puede ser negativo')]
     private ?int $precioCompra;
     #[ORM\ManyToOne(targetEntity: Editorial::class, inversedBy: 'libros')]
     private ?Editorial $editorial = null;
     #[ORM\ManyToMany(targetEntity: Autor::class, inversedBy: 'libros')]
+    #[Assert\Count(min: 1, minMessage: 'Un libro debe tener al menos un autor')]
     private Collection $autores;
 
     #[ORM\Column(type: 'integer', nullable: true)]

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: AutorRepository::class)]
 #[ORM\Table(name: 'autor')]
@@ -17,9 +19,21 @@ class Autor
     #[ORM\Column]
     private ?int $id = null;
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
+    #[Assert\Regex(
+        pattern: '/\d/',
+        message: 'El nombre no puede contener números',
+        match: false
+    )]
     private ?string $nombre = null;
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
+    #[Assert\Regex(pattern: '/\d/', message: 'Los apellidos no pueden contener números', match: false)]
     private ?string $apellidos = null;
+
+    #[Assert\LessThan('today', message: 'La fecha debe ser anterior a hoy')]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fechaNacimiento = null;
     #[ORM\ManyToMany(targetEntity: Libro::class, mappedBy: 'autores')]

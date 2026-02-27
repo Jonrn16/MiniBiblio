@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Autor;
 use App\Entity\Libro;
-use App\Repository\AutorRepository;
 use App\Repository\LibroRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use LibroType;

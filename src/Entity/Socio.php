@@ -6,9 +6,16 @@ use App\Repository\SocioRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SocioRepository::class)]
 #[ORM\Table(name: 'socio')]
+#[UniqueEntity(fields: ['dni'], message: 'DNI ya registrado')]
+#[Assert\Expression(
+    "this.isDocente() or this.isEstudiante()",
+    message: "Un socio debe ser docente, estudiante o ambos."
+)]
 class Socio
 {
     #[ORM\Id]
@@ -20,18 +27,22 @@ class Socio
     private string $dni;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private string $apellidos;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private string $nombre;
 
     #[ORM\Column(type: 'string')]
     private string $telefono;
 
+    #[Assert\Expression(
+        "this.isDocente() or this.isEstudiante()",
+        message: "Un socio debe ser docente, estudiante o ambos"
+    )]
     #[ORM\Column(type: 'boolean')]
     private bool $esDocente;
-
-    #[ORM\Column(type: 'boolean')]
     private bool $esEstudiante;
 
     #[ORM\OneToMany(targetEntity: Libro::class, mappedBy: "socioPrestamo")]
